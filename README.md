@@ -1,4 +1,4 @@
-# juomamme
+# Juomamme
 Tietokannat ja web-ohjelmointi kurssin harjoitustyö
 
 ## Sovelluksen toiminnot
@@ -20,7 +20,6 @@ Tietokannat ja web-ohjelmointi kurssin harjoitustyö
 * Käyttäjä pystyy lisämään kuvan juomasta
 
 * Käyttäjä voi saada erilaisia saavutuksia ja "arvonimiä", joita voi esitellä profiilissa
-
 
 ## Sovelluksen asennus
 
