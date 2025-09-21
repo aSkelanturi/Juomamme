@@ -4,6 +4,7 @@ from flask import redirect, render_template, request, session
 from werkzeug.security import check_password_hash, generate_password_hash
 import db
 import config
+import reviews
 
 
 app = Flask(__name__)
@@ -99,3 +100,13 @@ def show_review(review_id):
     result = db.query(sql, [review_id])[0]
 
     return render_template("show_review.html", review = result)
+
+@app.route("/find_review")
+def find_chug():
+    query = request.args.get("query")
+    if query:
+        results = reviews.find_reviews(query)
+    else:
+        query = ""
+        results = []
+    return render_template("find_review.html", query=query, results=results)
