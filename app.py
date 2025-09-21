@@ -11,7 +11,10 @@ app.secret_key = config.secret_key
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    sql = """SELECT id, drink FROM reviews ORDER BY id DESC"""
+    result = db.query(sql)
+    return render_template("index.html", reviews = result)
+    
 
 @app.route("/register")
 def register():
@@ -81,3 +84,18 @@ def create_drink():
     db.execute(sql, [drink, score, review, user_id])
 
     return redirect("/")
+
+@app.route("/review/<int:review_id>")
+def show_review(review_id):
+
+    sql = """SELECT reviews.drink,
+               reviews.score,
+               reviews.review,
+               users.username
+        FROM reviews
+        JOIN users ON reviews.user_id = users.id
+        WHERE reviews.id = ?"""
+
+    result = db.query(sql, [review_id])[0]
+
+    return render_template("show_review.html", review = result)
