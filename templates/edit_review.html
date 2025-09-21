@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Muokkaa arvostelua</title>
+</head>
+
+<body>
+    <h1>Muokkaa arvostelua</h1>
+  <form action="/update_review" method="post">
+    <p>
+      Juoma: <br />
+      <input type="text" name="drink" value="{{ review.drink }}"/>
+    </p>
+    
+    <p>
+    Arvosana: <br />
+    <input type="number" name="score" step="0.1" size="5" required maxlength="3" max="5" min="0" value="{{ review.score }}"/>/5
+    </p>
+
+    <p>
+        Arvostelu: <br />
+        <textarea name="review" rows="8" cols="60"></textarea value="{{ review.review }}">
+    </p>
+    <input type="submit" value="Päivitä arvostelua" />
+  </form>
+</body>
+
+</html>

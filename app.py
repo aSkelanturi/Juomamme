@@ -86,12 +86,18 @@ def create_drink():
 
     return redirect("/")
 
+@app.route("/edit_review/<int:review_id>")
+def edit_review(review_id):
+    review = reviews.get_review(review_id)
+    return render_template("edit_review.html", review = review)
+
 @app.route("/review/<int:review_id>")
 def show_review(review_id):
 
     sql = """SELECT reviews.drink,
                reviews.score,
                reviews.review,
+               users.id user_id,
                users.username
         FROM reviews
         JOIN users ON reviews.user_id = users.id
