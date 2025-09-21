@@ -62,4 +62,22 @@ def login():
 @app.route("/logout")
 def logout():
     del session["username"]
+    del session["user_id"]
+    return redirect("/")
+
+
+@app.route("/new_drink")
+def new_drink():
+    return render_template("new_drink.html")
+
+@app.route("/create_drink", methods=["POST"])
+def create_drink():
+    drink = request.form["drink"]
+    score = request.form["score"]
+    review = request.form["review"]
+    user_id = session["user_id"]
+
+    sql = "INSERT INTO reviews (drink, score, review, user_id) VALUES (?, ?, ?, ?)"
+    db.execute(sql, [drink, score, review, user_id])
+
     return redirect("/")
