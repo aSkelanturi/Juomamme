@@ -7,6 +7,10 @@ def find_reviews(query):
             ORDER BY id DESC"""
     return db.query(sql, ["%" + query + "%"])
 
+def get_reviews():
+    sql = """SELECT id, drink FROM reviews ORDER BY id DESC"""
+    return(db.query(sql))
+
 def get_review(review_id):
     sql = """SELECT reviews.drink,
                reviews.score,
@@ -21,6 +25,11 @@ def get_review(review_id):
     result = db.query(sql, [review_id])
     return result[0] if result else None
 
+def add_review(drink, score,review, user_id):
+    sql = "INSERT INTO reviews (drink, score, review, user_id) VALUES (?, ?, ?, ?)"
+    db.execute(sql, [drink, score, review, user_id])
+
+    
 def update_review(review_id, drink, score, review):
     sql = """UPDATE reviews SET drink = ?,
                             score = ?,

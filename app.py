@@ -1,6 +1,6 @@
 import sqlite3
 from flask import Flask
-from flask import redirect, render_template, request, session
+from flask import abort, redirect, render_template, request, session
 from werkzeug.security import check_password_hash, generate_password_hash
 import db
 import config
@@ -13,9 +13,14 @@ app.secret_key = config.secret_key
 #Main page
 @app.route("/")
 def index():
-    sql = """SELECT id, drink FROM reviews ORDER BY id DESC"""
-    result = db.query(sql)
-    return render_template("index.html", reviews = result)
+    all_reviews = reviews.get_reviews()
+    return render_template("index.html", reviews = all_reviews)
+
+
+#Check login
+def require_login():
+    if "user_id" not in session:
+        abort(403)
 
 #Making new accounts
 @app.route("/register")
@@ -84,8 +89,7 @@ def create_drink():
     review = request.form["review"]
     user_id = session["user_id"]
 
-    sql = "INSERT INTO reviews (drink, score, review, user_id) VALUES (?, ?, ?, ?)"
-    db.execute(sql, [drink, score, review, user_id])
+    reviews.add_review(drink,score,review,user_id)
 
     return redirect("/")
 
