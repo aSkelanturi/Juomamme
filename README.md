@@ -13,7 +13,7 @@ Tietokannat ja web-ohjelmointi kurssin harjoitustyö
 
 * Käyttäjä voi saada erilaisia saavutuksia ja "arvonimiä", joita voi esitellä profiilissa
 
-## Sovelluksessa toiminnot
+## Sovelluksessa olevat toiminnot
 
 * Käyttäjä pystyy luomaan tunnuksen ja kirjautumaan sisään sovellukseen.
 
