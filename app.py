@@ -91,21 +91,23 @@ def edit_review(review_id):
     review = reviews.get_review(review_id)
     return render_template("edit_review.html", review = review)
 
+@app.route("/update_review", methods=["POST"])
+def update_review():
+    review_id = request.form["review_id"]
+    drink = request.form["drink"]
+    score = request.form["score"]
+    review = request.form["review"]
+
+    reviews.update_review(review_id, drink, score, review)
+
+    return redirect("/review/" + str(review_id))
+
+
 @app.route("/review/<int:review_id>")
 def show_review(review_id):
+    review = reviews.get_review(review_id)
 
-    sql = """SELECT reviews.drink,
-               reviews.score,
-               reviews.review,
-               users.id user_id,
-               users.username
-        FROM reviews
-        JOIN users ON reviews.user_id = users.id
-        WHERE reviews.id = ?"""
-
-    result = db.query(sql, [review_id])[0]
-
-    return render_template("show_review.html", review = result)
+    return render_template("show_review.html", review = review)
 
 @app.route("/find_review")
 def find_chug():

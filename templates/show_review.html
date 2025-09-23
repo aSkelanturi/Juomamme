@@ -9,7 +9,7 @@
   <h1>{{ review.drink }}</h1>
       {% if session.user_id == review.user_id %}
     <p>
-        <a href ="/edit_review/{{ review.id }}">Muokkaa</a>
+        <a href="/edit_review/{{ review.id }}">Muokkaa</a>
     </p>
     {% endif %}
   <p>

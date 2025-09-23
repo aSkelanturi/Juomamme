@@ -20,8 +20,9 @@
 
     <p>
         Arvostelu: <br />
-        <textarea name="review" rows="8" cols="60"></textarea value="{{ review.review }}">
+        <textarea name="review" rows="8" cols="60">{{ review.review }}</textarea>
     </p>
+    <input type="hidden" name="review_id" value ="{{ review.id }}" />
     <input type="submit" value="Päivitä arvostelua" />
   </form>
 </body>
