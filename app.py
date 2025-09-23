@@ -106,11 +106,25 @@ def update_review():
 
     return redirect("/review/" + str(review_id))
 
+#Review Deleting
+@app.route("/remove_review/<int:review_id>", methods = ["GET", "POST"])
+def remove_review(review_id):
+    if request.method == "GET":
+        review = reviews.get_review(review_id)
+        return render_template("remove_review.html", review = review)
+    
+    if request.method == "POST":
+        if "remove" in request.form:
+            reviews.remove_review(review_id)
+            return redirect("/")
+        else:
+            return redirect("/review/" + str(review_id))
+        
+
 #Review page
 @app.route("/review/<int:review_id>")
 def show_review(review_id):
     review = reviews.get_review(review_id)
-
     return render_template("show_review.html", review = review)
 
 #Search page
