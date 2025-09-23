@@ -10,17 +10,15 @@ import reviews
 app = Flask(__name__)
 app.secret_key = config.secret_key
 
+def require_login():
+    if "user_id" not in session:
+        abort(403)
+
 #Main page
 @app.route("/")
 def index():
     all_reviews = reviews.get_reviews()
     return render_template("index.html", reviews = all_reviews)
-
-
-#Check login
-def require_login():
-    if "user_id" not in session:
-        abort(403)
 
 #Making new accounts
 @app.route("/register")
@@ -97,6 +95,11 @@ def create_drink():
 @app.route("/edit_review/<int:review_id>")
 def edit_review(review_id):
     review = reviews.get_review(review_id)
+    require_login()
+    if not review:
+        abort(404)
+    if review["user_id"] != session["user_id"]:
+        abort(403)
     return render_template("edit_review.html", review = review)
 
 @app.route("/update_review", methods=["POST"])
@@ -113,8 +116,14 @@ def update_review():
 #Review Deleting
 @app.route("/remove_review/<int:review_id>", methods = ["GET", "POST"])
 def remove_review(review_id):
+    review = reviews.get_review(review_id)
+    require_login()
+    if not review:
+        abort(404)
+    if review["user_id"] != session["user_id"]:
+        abort(403)
+
     if request.method == "GET":
-        review = reviews.get_review(review_id)
         return render_template("remove_review.html", review = review)
     
     if request.method == "POST":
@@ -129,6 +138,8 @@ def remove_review(review_id):
 @app.route("/review/<int:review_id>")
 def show_review(review_id):
     review = reviews.get_review(review_id)
+    if not review:
+        abort(404)
     return render_template("show_review.html", review = review)
 
 #Search page
