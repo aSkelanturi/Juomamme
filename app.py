@@ -10,13 +10,14 @@ import reviews
 app = Flask(__name__)
 app.secret_key = config.secret_key
 
+#Main page
 @app.route("/")
 def index():
     sql = """SELECT id, drink FROM reviews ORDER BY id DESC"""
     result = db.query(sql)
     return render_template("index.html", reviews = result)
-    
 
+#Making new accounts
 @app.route("/register")
 def register():
     return render_template("register.html")
@@ -38,6 +39,7 @@ def create():
 
     return "Tunnus luotu"
 
+#Login page
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "GET":
@@ -63,13 +65,14 @@ def login():
         else:
             return "VIRHE: väärä tunnus tai salasana"
 
+#Logout page
 @app.route("/logout")
 def logout():
     del session["username"]
     del session["user_id"]
     return redirect("/")
 
-
+#Adding new reviews
 @app.route("/new_drink")
 def new_drink():
     return render_template("new_drink.html")
@@ -86,6 +89,7 @@ def create_drink():
 
     return redirect("/")
 
+#Review editing
 @app.route("/edit_review/<int:review_id>")
 def edit_review(review_id):
     review = reviews.get_review(review_id)
@@ -102,13 +106,14 @@ def update_review():
 
     return redirect("/review/" + str(review_id))
 
-
+#Review page
 @app.route("/review/<int:review_id>")
 def show_review(review_id):
     review = reviews.get_review(review_id)
 
     return render_template("show_review.html", review = review)
 
+#Search page
 @app.route("/find_review")
 def find_chug():
     query = request.args.get("query")
