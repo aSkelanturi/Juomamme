@@ -25,6 +25,8 @@ Tietokannat ja web-ohjelmointi kurssin harjoitustyö
 
 * Käyttäjä pystyy valitsemaan juoman tyypin
 
+* Käyttäjät voivat kommentoida arvosteluita
+
 ## Sovelluksen asennus
 
 Asenna `flask`-kirjasto:

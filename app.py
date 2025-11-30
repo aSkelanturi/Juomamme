@@ -142,7 +142,21 @@ def show_review(review_id):
     review = reviews.get_review(review_id)
     if not review:
         abort(404)
-    return render_template("show_review.html", review = review)
+    comments = reviews.get_comments(review_id)
+    return render_template("show_review.html", review = review, comments = comments)
+
+@app.route("/create_comment", methods=["POST"])
+def create_comment():
+    comment = request.form["comment"]
+    review_id = request.form["review_id"]
+    review = reviews.get_review(review_id)
+    if not review:
+        abort(403)
+    user_id = session["user_id"]
+
+    reviews.add_comment(review_id, user_id, comment)
+
+    return redirect("/review/" + str(review_id))
 
 #User page
 @app.route("/user/<int:user_id>")

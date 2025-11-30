@@ -42,3 +42,14 @@ def update_review(review_id, drink, score, review, drink_type):
 def remove_review(review_id):
     sql = "DELETE FROM reviews WHERE id = ?"
     db.execute(sql, [review_id])
+
+def add_comment(review_id, user_id, comment):
+    sql = "INSERT INTO comments (review_id, user_id, comment) VALUES (?, ?, ?)"
+    db.execute(sql, [review_id, user_id, comment])
+
+def get_comments(review_id):
+    sql = """SELECT comments.comment, users.id user_id, users.username
+             FROM comments, users
+             WHERE comments.review_id = ? AND comments.user_id = users.id
+             ORDER BY comments.id DESC"""
+    return db.query(sql, [review_id])
