@@ -23,7 +23,7 @@ Tietokannat ja web-ohjelmointi kurssin harjoitustyö
 
 * Käyttäjä pystyy etsimään Arvosteluita hakusanalla tai muulla perusteella. Käyttäjä pystyy hakemaan sekä itse lisäämiään että muiden käyttäjien lisäämiä tietokohteita.
 
-* Käyttäjä pystyy valitsemaan juoma-arvostelulle yhden tai useamman luokittelun. (juoman nimi, arvosana, arvostelu)
+* Käyttäjä pystyy valitsemaan juoman tyypin
 
 ## Sovelluksen asennus
 
