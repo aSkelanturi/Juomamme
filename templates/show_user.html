@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Käyttäjä {{ user.username }}</title>
+</head>
+
+<body>
+    <h1>Käyttäjä:</h1>
+    <h1>{{ user.username }}</h1>
+    <p>
+        Käyttäjällä on yhteensä {{  reviews | count }} arvostelua
+    </p>
+    <h3>Käyttäjän arvostelut:</h3>
+    {% for review in reviews %}
+    <li><a href="/review/{{ review.id }}">{{ review.drink }}</a></li>
+    {% endfor %}
+  <p>
+    <a href="/">Etusivulle</a>
+  </p>
+</body>
+
+</html>

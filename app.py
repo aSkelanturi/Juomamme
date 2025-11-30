@@ -1,11 +1,11 @@
 import sqlite3
 from flask import Flask
-from flask import abort, redirect, render_template, request, session
+from flask import abort, redirect, render_template, request, session, flash
 from werkzeug.security import check_password_hash, generate_password_hash
 import db
 import config
 import reviews
-
+import users
 
 app = Flask(__name__)
 app.secret_key = config.secret_key
@@ -40,7 +40,7 @@ def create():
     except sqlite3.IntegrityError:
         return "VIRHE: tunnus on jo varattu"
 
-    return "Tunnus luotu"
+    return redirect("/")
 
 #Login page
 @app.route("/login", methods=["GET", "POST"])
@@ -141,6 +141,15 @@ def show_review(review_id):
     if not review:
         abort(404)
     return render_template("show_review.html", review = review)
+
+#User page
+@app.route("/user/<int:user_id>")
+def show_user(user_id):
+    user = users.get_user(user_id)
+    if not user:
+        abort(404)
+    reviews = users.get_reviews(user_id)
+    return render_template("show_user.html", user = user, reviews = reviews)
 
 #Search page
 @app.route("/find_review")

@@ -20,10 +20,10 @@
     Arvostelu: {{ review.review }}
   </p>
   <p>
-    Arvostelija: {{ review.username }}
+    Arvostelija: <a href="/user/{{  review.user_id  }}">{{ review.username }}</a>
   </p>
   <p>
-    <a href="/">Takaisin</a>
+    <a href="/">Etusivulle</a>
   </p>
 </body>
 
