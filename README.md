@@ -15,6 +15,8 @@ Tietokannat ja web-ohjelmointi kurssin harjoitustyö
 
 * Käyttäjä pystyy luomaan tunnuksen ja kirjautumaan sisään sovellukseen.
 
+* Sovelluksessa on käyttäjäsivut, jotka näyttävät jokaisesta käyttäjästä tilastoja
+
 * Käyttäjä pystyy lisäämään sovellukseen juoma-arvosteluja. Lisäksi käyttäjä pystyy muokkaamaan ja poistamaan lisäämiään juoma-arvosteluja.
 
 * Käyttäjä näkee sovellukseen lisätyt juomat. Käyttäjä näkee sekä itse lisäämänsä että muiden käyttäjien lisäämät juoma-arvostelut.
