@@ -85,9 +85,10 @@ def create_drink():
     drink = request.form["drink"]
     score = request.form["score"]
     review = request.form["review"]
+    drink_type = request.form["drink_type"]
     user_id = session["user_id"]
 
-    reviews.add_review(drink,score,review,user_id)
+    reviews.add_review(drink,score,review, drink_type, user_id)
 
     return redirect("/")
 
@@ -108,8 +109,9 @@ def update_review():
     drink = request.form["drink"]
     score = request.form["score"]
     review = request.form["review"]
+    drink_type = request.form["drink_type"]
 
-    reviews.update_review(review_id, drink, score, review)
+    reviews.update_review(review_id, drink, score, review, drink_type)
 
     return redirect("/review/" + str(review_id))
 

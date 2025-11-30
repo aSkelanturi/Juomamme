@@ -16,6 +16,7 @@ def get_review(review_id):
                reviews.score,
                reviews.id,
                reviews.review,
+               reviews.drink_type,
                users.id user_id,
                users.username
         FROM reviews
@@ -25,17 +26,18 @@ def get_review(review_id):
     result = db.query(sql, [review_id])
     return result[0] if result else None
 
-def add_review(drink, score,review, user_id):
-    sql = "INSERT INTO reviews (drink, score, review, user_id) VALUES (?, ?, ?, ?)"
-    db.execute(sql, [drink, score, review, user_id])
+def add_review(drink, score,review, drink_type, user_id):
+    sql = "INSERT INTO reviews (drink, score, review, drink_type, user_id) VALUES (?, ?, ?, ?, ?)"
+    db.execute(sql, [drink, score, review, drink_type, user_id])
 
     
-def update_review(review_id, drink, score, review):
+def update_review(review_id, drink, score, review, drink_type):
     sql = """UPDATE reviews SET drink = ?,
                             score = ?,
-                            review = ?
+                            review = ?,
+                            drink_type = ?
                         WHERE id = ?"""
-    db.execute(sql, [drink,score,review,review_id])
+    db.execute(sql, [drink,score,review, drink_type, review_id,])
 
 def remove_review(review_id):
     sql = "DELETE FROM reviews WHERE id = ?"

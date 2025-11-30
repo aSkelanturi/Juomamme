@@ -9,5 +9,6 @@ CREATE TABLE reviews (
     drink TEXT,
     score INTEGER,
     review TEXT,
-    user_id INTEGER REFRENCES users
+    drink_type TEXT,
+    user_id INTEGER REFERENCES users(id)
 );

@@ -9,10 +9,26 @@
     <h1>Uusi arvostelu</h1>
   <form action="/create_drink" method="post">
     <p>
-      Juoma: <br />
+      Juoman nimi: <br />
       <input type="text" name="drink"/>
     </p>
-    
+    <p>
+      Juoman tyyppi: <br />
+      <select name="drink_type" required>
+        <option value=""></option>
+        <option value="Vesi">Vesi</option>
+        <option value="Mehu">Mehu</option>
+        <option value="Limu">Limu</option>
+        <option value="Energiajuoma">Energiajuoma</option>
+        <option value="Olut">Olut</option>
+        <option value="Valmis juomasekoitus">Valmis juomasekoitus</option>
+        <option value="Drinkki">Drinkki</option>
+        <option value="Likööri">Likööri</option>
+        <option value="Viina">Viina</option>
+        <option value="Viini">Viini</option>
+        <option value="Muu">Muu</option>
+      </select>
+    </p>
     <p>
     Arvosana: <br />
     <input type="number" name="score" step="0.1" size="5" required maxlength="3" max="5" min="0"/>/5
@@ -25,7 +41,7 @@
     <input type="submit" value="Julkaise arvostelu" />
   </form>
     <p>
-      <a href="/">Takaisin</a>
+      <a href="/">Etusivulle</a>
     </p>
 </body>
 
