@@ -38,7 +38,7 @@
   <div class="drinks">
     <h2>Lisätyt arvostelut:</h2>
     <ul class="drink-list">
-    {% for review in reviews %}
+    {% for review in all_reviews %}
     <li><a href="/review/{{ review.id }}">{{ review.drink }}</a></li>
     {% endfor %}
     </ul>

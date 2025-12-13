@@ -18,7 +18,7 @@ def require_login():
 @app.route("/")
 def index():
     all_reviews = reviews.get_reviews()
-    return render_template("index.html", reviews = all_reviews)
+    return render_template("index.html", all_reviews = all_reviews)
 
 #Making new accounts
 @app.route("/register")
@@ -89,7 +89,7 @@ def create_drink():
     drink_type = request.form["drink_type"]
     user_id = session["user_id"]
 
-    reviews.add_review(drink,score,review, drink_type, user_id)
+    reviews.add_review(drink, score, review, drink_type, user_id)
 
     return redirect("/")
 
