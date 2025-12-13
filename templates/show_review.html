@@ -7,34 +7,56 @@
 </head>
 
 <body>
-  <h1>{{ review.drink }}</h1>
-      {% if session.user_id == review.user_id %}
-    <p>
-        <a href="/edit_review/{{ review.id }}">Muokkaa</a>
-        <a href="/remove_review/{{ review.id }}">Poista</a>
-    </p>
-    {% endif %}
+  <div class="header">
+    <h1>{{ review.drink  }}</h1>
+  </div>
 
-  <p>
-    Juoman tyyppi: {{ review.drink_type }}
-  </p>
-  <p>
-    Arvosana: {{ review.score }}/5
-  </p>
-  <p>
-    Arvostelu: {{ review.review }}
-  </p>
-  <p>
-    Arvostelija: <a href="/user/{{  review.user_id  }}">{{ review.username }}</a>
+  <div style="padding: 20px;">
+    <table class="drink-table">
+      <tr>
+        <td class="label">Juoman tyyppi:</td>
+        <td class="value">{{ review.drink_type }}</td>
+      </tr>
+      <tr>
+        <td class="label">Arvosana:</td>
+        <td class="value">{{ review.score }}/5</td>
+      </tr>
+      <tr>
+        <td class="label">Arvostelu:</td>
+        <td class="value">{{ review.review }}</td>
+      </tr>
+      <tr>
+        <td class="label">Arvostelija:</td>
+        <td class="value"><a href="/user/{{ review.user_id }}">{{ review.username }}</a></td>
+      </tr>
+    </table>
+  </div>
+
+  <p style="text-align: center;">
+    <a href="/" class="button">Etusivulle</a>
   </p>
 
-  <h3>Kommentit:</h3>
-  <ul>
-    {% for comment in comments %}
-    <li>{{ comment.comment }} <br />Käyttäjältä: <a href="/user/{{ comments.user_id }}">{{ comment.username }}</a></li>
-    {% endfor %}
-  </ul>
-  <h4>Uusi kommentti:</h4>
+
+  {% if session.user_id == review.user_id %}
+  <p style="text-align: center;">
+      <a href="/edit_review/{{ review.id }}" class="button">Muokkaa</a>
+      <a href="/remove_review/{{ review.id }}" class="button">Poista</a>
+  </p>
+  {% endif %}
+
+  <h3 style="text-align: center;">Kommentit:</h3>
+  <div class="comments-section">
+    <ul class="comments-list">
+      {% for comment in comments %}
+      <li>
+        <div class="comment-text">{{ comment.comment }}</div>
+        <div class="comment-author">Käyttäjältä: <a href="/user/{{ comment.user_id }}">{{ comment.username }}</a></div>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+  
+  <h4 style="text-align: center;">Uusi kommentti:</h4>
   <form action="/create_comment" method="POST">
     <p>
       <textarea name="comment" rows="8" cols="60" required></textarea>
@@ -42,9 +64,10 @@
     <input type="hidden" name="review_id" value="{{ review.id }}" />
     <input type="submit" value="Julkaise kommentti" />
   </form>
-  <p>
-    <a href="/">Etusivulle</a>
-  </p>
-</body>
 
+  <div class="footer">
+    <a href="https://github.com/aSkelanturi/Juomamme">GitHub</a>
+  </div>
+
+</body>
 </html>

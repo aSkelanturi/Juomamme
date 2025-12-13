@@ -10,9 +10,11 @@
     <div class="header">
       <h1>Poista arvostelu</h1>
     </div>
-    <p>Ilmoitus: {{ review.drink }}</p>
-    <p>Haluatko Varmasti poistaa ilmoituksen?</p>
+
+    <h2 style="text-align: center;">Ilmoitus: {{ review.drink }}</h2>
+    
     <form action="/remove_review/{{ review.id }}" method="post">
+      <p>Haluatko Varmasti poistaa ilmoituksen?</p>
       <input type="submit" name="remove" value="Poista arvostelu">
       <input type="submit" name="back" value="Palaa takaisin">
     </form>
