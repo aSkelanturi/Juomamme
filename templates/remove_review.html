@@ -2,17 +2,24 @@
 <html>
 
 <head>
+  <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
   <title>Poista arvostelu</title>
 </head>
 
 <body>
-    <h1>Poista arvostelu</h1>
+    <div class="header">
+      <h1>Poista arvostelu</h1>
+    </div>
     <p>Ilmoitus: {{ review.drink }}</p>
     <p>Haluatko Varmasti poistaa ilmoituksen?</p>
     <form action="/remove_review/{{ review.id }}" method="post">
       <input type="submit" name="remove" value="Poista arvostelu">
       <input type="submit" name="back" value="Palaa takaisin">
     </form>
-</body>
 
+  <div class="footer">
+    <a href="https://github.com/aSkelanturi/Juomamme">GitHub</a>
+  </div>
+
+</body>
 </html>

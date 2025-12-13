@@ -2,34 +2,51 @@
 <html>
 
 <head>
+  <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
   <title>Juomamme</title>
 </head>
 
 <body>
-  <h1>Juomamme</h1>  
-  {% if session.username %}
-  <p>
-    Olet kirjautunut nimellä {{ session.username }} id numerosi on {{ session.user_id }}
-  </p>
-  {% endif %}
-  <p>
-    <a href="/login">Kirjaudu sisään</a>
-    <a href="/register">Luo tunnus</a>
-    <a href="/login">Kirjaudu ulos</a>
-  </p>
-  
-  <p>
-    <a href="/new_drink">Uusi arvostelu</a>
-    <a href="/find_review">Etsi arvostelu</a>
-  </p>
+  <div class="header">
+    <h1>Juomamme</h1>
+  </div>
 
-  <h2>Arvostelut</h2>
-  <ul>
-  {% for review in reviews %}
-  <li><a href="/review/{{ review.id }}">{{ review.drink }}</a></li>
-  {% endfor %}
-  </ul>
+  <div class="toolbar">
+    <div style="flex: 1;"></div>
+    
+    <div style="display: flex; gap: 12px;">
+      {% if session.username %}
+        <a href="/new_drink" class="button">Uusi arvostelu</a>
+      {% else %}
+        <a href="/login" class="button">Kirjaudu sisään</a>
+        <a href="/register" class="button">Luo tunnus</a>
+      {% endif %}
+        <a href="/find_review" class="button">Etsi arvostelu</a>
+    </div>
+    
+    {% if session.username %}
+    <div style="display: flex; align-items: center; gap: 12px; flex: 1; justify-content: flex-end;">
+      <p style="margin: 0;">Olet kirjautunut sisään nimellä <a href="/user/{{  session.user_id  }}">{{ session.username }}</a></p>
+      <a href="/logout" class="button">Kirjaudu ulos</a>
+    </div>
+    {% else %}
+    <div style="flex: 1;"></div>
+    {% endif %}
 
+  </div>
+
+  <div class="drinks">
+    <h2>Lisätyt arvostelut:</h2>
+    <ul class="drink-list">
+    {% for review in reviews %}
+    <li><a href="/review/{{ review.id }}">{{ review.drink }}</a></li>
+    {% endfor %}
+    </ul>
+  </div>
+
+
+  <div class="footer">
+    <a href="https://github.com/aSkelanturi/Juomamme">GitHub</a>
+  </div>
 </body>
-
 </html>

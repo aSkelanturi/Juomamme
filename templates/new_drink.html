@@ -2,11 +2,14 @@
 <html>
 
 <head>
+  <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
   <title>Uusi arvostelu</title>
 </head>
 
 <body>
-    <h1>Uusi arvostelu</h1>
+    <div class="header">
+      <h1>Uusi arvostelu</h1>
+    </div>
   <form action="/create_drink" method="post">
     <p>
       Juoman nimi: <br />

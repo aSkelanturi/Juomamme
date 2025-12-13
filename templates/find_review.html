@@ -2,24 +2,25 @@
 <html>
 
 <head>
+  <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
   <title>Etsi Arvosteluita</title>
 </head>
 
 <body>
+  <div class="header">
     <h1>Etsi Arvosteluita</h1>
+  </div>
     
+  <div class="search-form">
     <form action="/find_review" method="get">
-      
-    <p>
-        Hakusana: <input type="text" name="query" value="{{ query }}">
-    </p>
-    <input type="submit" value="Etsi">
+      Hakusana: <input type="text" name="query" value="{{ query }}">
+    <input type="submit" class="button" value="Hae">
     </form>
-    <p>
-        <a href="/">Etusivulle</a>
-    </p>
+  </div>
+
+  <div style="text-align: center; flex: 1;">
     {% if query %}
-    <h2>Tulokset</h2>
+    <h2>Tulokset haulle {{ query }}</h2>
     
     <ul>
       {% for review in results %}
@@ -27,6 +28,15 @@
       {% endfor %}
     </ul>
     {% endif %}
-</body>
+  </div>
+  
+    <p style="text-align:center; margin-bottom: 20px;">
+      <a href="/" class="button">Etusivulle</a>
+    </p>
 
+  <div class="footer">
+    <a href="https://github.com/aSkelanturi/Juomamme">GitHub</a>
+  </div>
+
+</body>
 </html>

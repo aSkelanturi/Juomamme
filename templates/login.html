@@ -2,10 +2,14 @@
 <html>
 
 <head>
+  <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
   <title>Kirjautuminen</title>
 </head>
 
 <body>
+  <div class="header">
+    <h1>Kirjaudu sisään</h1>
+  </div>
   {% if session.username %}
   <p>
     Olet kirjautunut nimellä {{ session.username }}

@@ -2,11 +2,14 @@
 <html>
 
 <head>
+  <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
   <title>Muokkaa arvostelua</title>
 </head>
 
 <body>
-    <h1>Muokkaa arvostelua</h1>
+  <div class="header">
+    <h1>Muokkaa Arvostelua</h1>
+  </div>
   <p>
     <a href="/">Etusivulle</a>
   </p>
@@ -46,6 +49,9 @@
     <input type="hidden" name="review_id" value ="{{ review.id }}" />
     <input type="submit" value="Päivitä arvostelua" />
   </form>
-</body>
 
+  <div class="footer">
+    <a href="https://github.com/aSkelanturi/Juomamme">GitHub</a>
+  </div>
+</body>
 </html>
