@@ -82,6 +82,7 @@ def new_drink():
 
 @app.route("/create_drink", methods=["POST"])
 def create_drink():
+    require_login()
     drink = request.form["drink"]
     score = request.form["score"]
     review = request.form["review"]
@@ -147,6 +148,7 @@ def show_review(review_id):
 
 @app.route("/create_comment", methods=["POST"])
 def create_comment():
+    require_login()
     comment = request.form["comment"]
     review_id = request.form["review_id"]
     review = reviews.get_review(review_id)
@@ -169,7 +171,7 @@ def show_user(user_id):
 
 #Search page
 @app.route("/find_review")
-def find_chug():
+def find_reviews():
     query = request.args.get("query")
     if query:
         results = reviews.find_reviews(query)
