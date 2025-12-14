@@ -13,12 +13,12 @@
   <form action="/create_drink" method="post">
     <p>
       Juoman nimi: <br />
-      <input type="text" name="drink"/>
+      <input type="text" name="drink" required minlength="1" maxlength="100"/>
     </p>
     <p>
       Juoman tyyppi: <br />
       <select name="drink_type" required>
-        <option value=""></option>
+        <option value="">Valitse tyyppi</option>
         <option value="Vesi">Vesi</option>
         <option value="Mehu">Mehu</option>
         <option value="Limu">Limu</option>
@@ -34,17 +34,17 @@
     </p>
     <p>
     Arvosana: <br />
-    <input type="number" name="score" step="0.1" size="5" required maxlength="3" max="5" min="0"/>/5
+    <input type="number" name="score" step="0.1" required max="5" min="0"/>/5
     </p>
 
     <p>
         Arvostelu: <br />
-        <textarea name="review" rows="8" cols="60"></textarea>
+        <textarea name="review" rows="8" maxlength="4000"></textarea>
     </p>
     <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />
     <input type="submit" value="Julkaise arvostelu" />
   </form>
-    <p style="text-align: center;">
+    <p style="text-align: center; margin-bottom: 20px;">
       <a href="/" class="button">Etusivulle</a>
     </p>
   <div class="footer">

@@ -63,7 +63,7 @@
   <h4 style="text-align: center;">Uusi kommentti:</h4>
   <form action="/create_comment" method="POST">
     <p>
-      <textarea name="comment" rows="8" cols="60" required></textarea>
+      <textarea name="comment" rows="8" required minlength="1" maxlength="1000"></textarea>
     </p>
     <input type="hidden" name="review_id" value="{{ review.id }}" />
     <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />

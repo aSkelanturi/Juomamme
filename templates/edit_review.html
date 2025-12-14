@@ -14,7 +14,7 @@
   <form action="/update_review" method="post">
     <p>
       Juoma: <br />
-      <input type="text" name="drink" value="{{ review.drink }}"/>
+      <input type="text" name="drink" value="{{ review.drink }}" required minlength="1" maxlength="100"/>
     </p>
     <p>
       Juoman tyyppi: <br />
@@ -35,11 +35,11 @@
     </p>
     <p>
       Arvosana:
-      <input type="number" name="score" step="0.1" size="5" required maxlength="3" max="5" min="0" value="{{ review.score }}"/>/5
+      <input type="number" name="score" step="0.1" required max="5" min="0" value="{{ review.score }}"/>/5
     </p>
     <p>
       Arvostelu:
-      <textarea name="review" rows="8" cols="60">{{ review.review }}</textarea>
+      <textarea name="review" rows="8" maxlength="4000">{{ review.review }}</textarea>
     </p>
 
     <input type="hidden" name="review_id" value ="{{ review.id }}" />

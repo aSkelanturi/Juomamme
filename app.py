@@ -34,8 +34,14 @@ def create():
     username = request.form["username"]
     password1 = request.form["password1"]
     password2 = request.form["password2"]
+
+    if len(username) < 3 or len(username) > 25:
+        return "VIRHE: käyttäjätunnus tulee olla 3-25 merkkiä"
+    if len(password1) < 8:
+        return "VIRHE: salasanan tulee olla vähintään 8 merkkiä pitkä"
     if password1 != password2:
         return "VIRHE: salasanat eivät ole samat"
+    
     password_hash = generate_password_hash(password1)
 
     try:
@@ -95,12 +101,24 @@ def create_drink():
     review = request.form["review"]
     user_id = session["user_id"]
 
-
     classes = []
 
     drink_type = request.form["drink_type"]
     if drink_type:
         classes.append(("Juoma", drink_type))
+
+    if len(drink) < 1 or len(drink) > 100:
+        return "VIRHE: juoman nimi tulee olla 1-100 merkkiä pitkä"
+    try:
+        score_float = float(score)
+        if score_float < 0 or score_float > 5:
+            return "VIRHE: arvosanan tulee olla 0-5 välillä"
+    except ValueError:
+        return "VIRHE: arvosanan tulee olla numero"
+    if len(review) > 4000:
+        return "VIRHE: arvostelu voi olla enintään 4000 merkkiä pitkä"
+    if not drink_type:
+        return "VIRHE: valitse juoman tyyppi"
 
     reviews.add_review(drink, score, review, user_id, classes)
 
@@ -133,7 +151,7 @@ def update_review():
     drink = request.form["drink"]
     score = request.form["score"]
     review = request.form["review"]
-    
+
     classes = []
 
     drink_type = request.form["drink_type"]
@@ -141,6 +159,19 @@ def update_review():
         classes.append(("Juoma", drink_type))
 
     reviews.update_review(review_id, drink, score, review, classes)
+
+    if len(drink) < 1 or len(drink) > 100:
+        return "VIRHE: juoman nimi tulee olla 1-100 merkkiä pitkä"
+    try:
+        score_float = float(score)
+        if score_float < 0 or score_float > 5:
+            return "VIRHE: arvosanan tulee olla 0-5 välillä"
+    except ValueError:
+        return "VIRHE: arvosanan tulee olla numero"
+    if len(review) > 4000:
+        return "VIRHE: arvostelu voi olla enintään 4000 merkkiä pitkä"
+    if not drink_type:
+        return "VIRHE: valitse juoman tyyppi"
 
     return redirect("/review/" + str(review_id))
 
@@ -185,6 +216,10 @@ def create_comment():
     review = reviews.get_review(review_id)
     if not review:
         abort(403)
+
+    if len(comment) < 1 or len(comment) > 1000:
+        return "VIRHE: kommentin tulee olla 1-1000 merkkiä pitkä"
+
     user_id = session["user_id"]
 
     reviews.add_comment(review_id, user_id, comment)
@@ -205,6 +240,8 @@ def show_user(user_id):
 def find_reviews():
     query = request.args.get("query")
     if query:
+        if len(query) > 100:
+            return "VIRHE: hakusana voi olla enintään 100 merkkiä pitkä"
         results = reviews.find_reviews(query)
     else:
         query = ""
