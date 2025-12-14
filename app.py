@@ -1,4 +1,4 @@
-import sqlite3
+import sqlite3, secrets
 from flask import Flask
 from flask import abort, redirect, render_template, request, session, flash
 from werkzeug.security import check_password_hash, generate_password_hash
@@ -12,6 +12,10 @@ app.secret_key = config.secret_key
 
 def require_login():
     if "user_id" not in session:
+        abort(403)
+
+def check_csrf():
+    if request.form["csrf_token"] != session["csrf_token"]:
         abort(403)
 
 #Main page
@@ -64,6 +68,7 @@ def login():
         if check_password_hash(password_hash, password):
             session["user_id"] = user_id
             session["username"] = username
+            session["csrf_token"] = secrets.token_hex(16)
             return redirect("/")
         else:
             return "VIRHE: väärä tunnus tai salasana"
@@ -83,6 +88,7 @@ def new_drink():
 @app.route("/create_drink", methods=["POST"])
 def create_drink():
     require_login()
+    check_csrf()
     drink = request.form["drink"]
     score = request.form["score"]
     review = request.form["review"]
@@ -106,6 +112,8 @@ def edit_review(review_id):
 
 @app.route("/update_review", methods=["POST"])
 def update_review():
+    require_login()
+    check_csrf()
     review_id = request.form["review_id"]
     drink = request.form["drink"]
     score = request.form["score"]
@@ -130,6 +138,7 @@ def remove_review(review_id):
         return render_template("remove_review.html", review = review)
     
     if request.method == "POST":
+        check_csrf()
         if "remove" in request.form:
             reviews.remove_review(review_id)
             return redirect("/")
@@ -149,6 +158,7 @@ def show_review(review_id):
 @app.route("/create_comment", methods=["POST"])
 def create_comment():
     require_login()
+    check_csrf()
     comment = request.form["comment"]
     review_id = request.form["review_id"]
     review = reviews.get_review(review_id)

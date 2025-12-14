@@ -62,6 +62,7 @@
       <textarea name="comment" rows="8" cols="60" required></textarea>
     </p>
     <input type="hidden" name="review_id" value="{{ review.id }}" />
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />
     <input type="submit" value="Julkaise kommentti" />
   </form>
 
