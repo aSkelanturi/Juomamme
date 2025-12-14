@@ -16,7 +16,7 @@ def get_review(review_id):
                reviews.score,
                reviews.id,
                reviews.review,
-               users.id user_id,
+               users.id AS user_id,
                users.username
         FROM reviews
         JOIN users ON reviews.user_id = users.id

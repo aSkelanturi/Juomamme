@@ -90,6 +90,7 @@ def logout():
 #Adding new reviews
 @app.route("/new_drink")
 def new_drink():
+    require_login()
     return render_template("new_drink.html")
 
 @app.route("/create_drink", methods=["POST"])
@@ -158,8 +159,6 @@ def update_review():
     if drink_type:
         classes.append(("Juoma", drink_type))
 
-    reviews.update_review(review_id, drink, score, review, classes)
-
     if len(drink) < 1 or len(drink) > 100:
         return "VIRHE: juoman nimi tulee olla 1-100 merkkiä pitkä"
     try:
@@ -172,6 +171,8 @@ def update_review():
         return "VIRHE: arvostelu voi olla enintään 4000 merkkiä pitkä"
     if not drink_type:
         return "VIRHE: valitse juoman tyyppi"
+    
+    reviews.update_review(review_id, drink, score, review, classes)
 
     return redirect("/review/" + str(review_id))
 
