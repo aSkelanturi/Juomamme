@@ -11,11 +11,11 @@
     <h1>Kirjaudu sisään</h1>
   </div>
   {% if session.username %}
-  <p>
+  <p style="text-align: center;">
     Olet kirjautunut nimellä {{ session.username }}
   </p>
-  <p>
-    <a href="/logout">Kirjaudu ulos</a>
+  <p style="text-align: center;">
+    <a href="/logout" class="button">Kirjaudu ulos</a>
   </p>
   {% else %}
   <form action="/login" method="post">
