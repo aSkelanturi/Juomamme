@@ -10,16 +10,26 @@
     <div class="header">
       <h1>{{ user.username }}</h1>
     </div>
-    <p>
+    <h2 style="text-align: center;">
         Käyttäjällä on yhteensä {{  reviews | count }} arvostelua.
-    </p>
-    <h3>Käyttäjän arvostelut:</h3>
-    {% for review in reviews %}
-    <li><a href="/review/{{ review.id }}">{{ review.drink }}</a></li>
-    {% endfor %}
-  <p>
-    <a href="/">Etusivulle</a>
-  </p>
-</body>
+    </h2>
+    {% if average_score %}
+      <h2 style="text-align: center;">
+        Arvosanojen keskiarvo: {{ average_score }}/5
+      </h2>
+      {% endif %}
 
+    <h3 style="text-align: center;">Käyttäjän arvostelut:</h3>
+    {% for review in reviews %}
+    <li style="text-align: center;"><a href="/review/{{ review.id }}">{{ review.drink }}</a></li>
+    {% endfor %}
+  <p style="text-align: center;">
+    <a href="/" class="button">Etusivulle</a>
+  </p>
+
+  <div class="footer">
+    <a href="https://github.com/aSkelanturi/Juomamme">GitHub</a>
+  </div>
+
+</body>
 </html>

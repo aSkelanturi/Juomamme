@@ -9,7 +9,7 @@ def find_reviews(query):
 
 def get_reviews():
     sql = """SELECT id, drink FROM reviews ORDER BY id DESC"""
-    return(db.query(sql))
+    return db.query(sql)
 
 def get_review(review_id):
     sql = """SELECT reviews.drink,
@@ -25,7 +25,7 @@ def get_review(review_id):
     result = db.query(sql, [review_id])
     return result[0] if result else None
 
-def add_review(drink, score,review, user_id, classes):
+def add_review(drink, score, review, user_id, classes):
     sql = "INSERT INTO reviews (drink, score, review, user_id) VALUES (?, ?, ?, ?)"
     db.execute(sql, [drink, score, review, user_id])
 
@@ -45,7 +45,7 @@ def update_review(review_id, drink, score, review, classes):
                             score = ?,
                             review = ?
                             WHERE id = ?"""
-    db.execute(sql, [drink,score, review, review_id,])
+    db.execute(sql, [drink, score, review, review_id])
 
 
     sql = "DELETE FROM review_classes WHERE review_id = ?"
@@ -69,3 +69,4 @@ def get_comments(review_id):
              WHERE comments.review_id = ? AND comments.user_id = users.id
              ORDER BY comments.id DESC"""
     return db.query(sql, [review_id])
+

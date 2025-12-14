@@ -234,7 +234,9 @@ def show_user(user_id):
     if not user:
         abort(404)
     reviews = users.get_reviews(user_id)
-    return render_template("show_user.html", user = user, reviews = reviews)
+    average_score = users.get_average_score(user_id)
+
+    return render_template("show_user.html", user = user, reviews = reviews, average_score = average_score)
 
 #Search page
 @app.route("/find_review")
