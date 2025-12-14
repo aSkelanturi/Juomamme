@@ -19,18 +19,18 @@
     <p>
       Juoman tyyppi: <br />
       <select name="drink_type" required>
-        <option value=""></option>
-        <option value="Vesi">Vesi</option>
-        <option value="Mehu">Mehu</option>
-        <option value="Limu">Limu</option>
-        <option value="Energiajuoma">Energiajuoma</option>
-        <option value="Olut">Olut</option>
-        <option value="Valmis juomasekoitus">Valmis juomasekoitus</option>
-        <option value="Drinkki">Drinkki</option>
-        <option value="Likööri">Likööri</option>
-        <option value="Viina">Viina</option>
-        <option value="Viini">Viini</option>
-        <option value="Muu">Muu</option>
+        <option value="">Valitse tyyppi</option>
+        <option value="Vesi" {% if current_type == "Vesi" %}selected{% endif %}>Vesi</option>
+        <option value="Mehu" {% if current_type == "Mehu" %}selected{% endif %}>Mehu</option>
+        <option value="Limu" {% if current_type == "Limu" %}selected{% endif %}>Limu</option>
+        <option value="Energiajuoma" {% if current_type == "Energiajuoma" %}selected{% endif %}>Energiajuoma</option>
+        <option value="Olut" {% if current_type == "Olut" %}selected{% endif %}>Olut</option>
+        <option value="Valmis juomasekoitus" {% if current_type == "Valmis juomasekoitus" %}selected{% endif %}>Valmis juomasekoitus</option>
+        <option value="Drinkki" {% if current_type == "Drinkki" %}selected{% endif %}>Drinkki</option>
+        <option value="Likööri" {% if current_type == "Likööri" %}selected{% endif %}>Likööri</option>
+        <option value="Viina" {% if current_type == "Viina" %}selected{% endif %}>Viina</option>
+        <option value="Viini" {% if current_type == "Viini" %}selected{% endif %}>Viini</option>
+        <option value="Muu" {% if current_type == "Muu" %}selected{% endif %}>Muu</option>
       </select>
     </p>
     <p>

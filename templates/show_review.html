@@ -13,10 +13,14 @@
 
   <div style="padding: 20px;">
     <table class="drink-table">
+      {% for title, value in classes %}
+      {% if title == "Juoma" %}
       <tr>
         <td class="label">Juoman tyyppi:</td>
-        <td class="value">{{ review.drink_type }}</td>
+        <td class="value">{{ value }}</td>
       </tr>
+      {% endif %}
+      {% endfor %}
       <tr>
         <td class="label">Arvosana:</td>
         <td class="value">{{ review.score }}/5</td>

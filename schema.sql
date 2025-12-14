@@ -9,13 +9,19 @@ CREATE TABLE reviews (
     drink TEXT,
     score INTEGER,
     review TEXT,
-    drink_type TEXT,
     user_id INTEGER REFERENCES users(id)
+);
+
+CREATE TABLE review_classes (
+    id INTEGER PRIMARY KEY,
+    review_id INTEGER REFERENCES reviews(id),
+    title TEXT,
+    value TEXT
 );
 
 CREATE TABLE comments (
     id INTEGER PRIMARY KEY,
-    review_id INTEGER REFERENCES reviews,
-    user_id INTEGER REFERENCES users,
+    review_id INTEGER REFERENCES reviews(id),
+    user_id INTEGER REFERENCES users(id),
     comment TEXT
 );

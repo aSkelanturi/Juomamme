@@ -16,7 +16,6 @@ def get_review(review_id):
                reviews.score,
                reviews.id,
                reviews.review,
-               reviews.drink_type,
                users.id user_id,
                users.username
         FROM reviews
@@ -26,18 +25,35 @@ def get_review(review_id):
     result = db.query(sql, [review_id])
     return result[0] if result else None
 
-def add_review(drink, score,review, drink_type, user_id):
-    sql = "INSERT INTO reviews (drink, score, review, drink_type, user_id) VALUES (?, ?, ?, ?, ?)"
-    db.execute(sql, [drink, score, review, drink_type, user_id])
+def add_review(drink, score,review, user_id, classes):
+    sql = "INSERT INTO reviews (drink, score, review, user_id) VALUES (?, ?, ?, ?)"
+    db.execute(sql, [drink, score, review, user_id])
+
+    review_id = db.last_insert_id()
+
+    sql = "INSERT INTO review_classes (review_id, title, value) VALUES (?, ?, ?)"
+    for title, value in classes:
+        db.execute(sql, [review_id, title, value])
+
+def get_classes(review_id):
+    sql = "SELECT title, value FROM review_classes WHERE review_id = ?"
+    return db.query(sql, [review_id])
 
     
-def update_review(review_id, drink, score, review, drink_type):
+def update_review(review_id, drink, score, review, classes):
     sql = """UPDATE reviews SET drink = ?,
                             score = ?,
-                            review = ?,
-                            drink_type = ?
-                        WHERE id = ?"""
-    db.execute(sql, [drink,score,review, drink_type, review_id,])
+                            review = ?
+                            WHERE id = ?"""
+    db.execute(sql, [drink,score, review, review_id,])
+
+
+    sql = "DELETE FROM review_classes WHERE review_id = ?"
+    db.execute(sql, [review_id])
+
+    sql = "INSERT INTO review_classes (review_id, title, value) VALUES (?, ?, ?)"
+    for title, value in classes:
+        db.execute(sql, [review_id, title, value])
 
 def remove_review(review_id):
     sql = "DELETE FROM reviews WHERE id = ?"

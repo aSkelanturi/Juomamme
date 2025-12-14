@@ -93,10 +93,16 @@ def create_drink():
     drink = request.form["drink"]
     score = request.form["score"]
     review = request.form["review"]
-    drink_type = request.form["drink_type"]
     user_id = session["user_id"]
 
-    reviews.add_review(drink, score, review, drink_type, user_id)
+
+    classes = []
+
+    drink_type = request.form["drink_type"]
+    if drink_type:
+        classes.append(("Juoma", drink_type))
+
+    reviews.add_review(drink, score, review, user_id, classes)
 
     return redirect("/")
 
@@ -109,7 +115,15 @@ def edit_review(review_id):
         abort(404)
     if review["user_id"] != session["user_id"]:
         abort(403)
-    return render_template("edit_review.html", review = review)
+
+    classes = reviews.get_classes(review_id)
+    current_type = ""
+    for title, value in classes:
+        if title == "Juoma":
+            current_type = value
+            break
+
+    return render_template("edit_review.html", review = review, current_type = current_type)
 
 @app.route("/update_review", methods=["POST"])
 def update_review():
@@ -119,9 +133,14 @@ def update_review():
     drink = request.form["drink"]
     score = request.form["score"]
     review = request.form["review"]
-    drink_type = request.form["drink_type"]
+    
+    classes = []
 
-    reviews.update_review(review_id, drink, score, review, drink_type)
+    drink_type = request.form["drink_type"]
+    if drink_type:
+        classes.append(("Juoma", drink_type))
+
+    reviews.update_review(review_id, drink, score, review, classes)
 
     return redirect("/review/" + str(review_id))
 
@@ -154,7 +173,8 @@ def show_review(review_id):
     if not review:
         abort(404)
     comments = reviews.get_comments(review_id)
-    return render_template("show_review.html", review = review, comments = comments)
+    classes = reviews.get_classes(review_id)
+    return render_template("show_review.html", review = review, comments = comments, classes = classes)
 
 @app.route("/create_comment", methods=["POST"])
 def create_comment():
