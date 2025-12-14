@@ -3,8 +3,6 @@ Tietokannat ja web-ohjelmointi kurssin harjoitustyö
 
 ## Sovelluksen toiminnot
 
-* Sovelluksessa on käyttäjäsivut, jotka näyttävät jokaisesta käyttäjästä tilastoja (arvostelujen määrä ja jotain muuta hauskaa nippelitietoa)
-
 * Käyttäjät pystyvät vertailemaan arvosteluja toisten käyttäjien arvosteluihin taulukon (esim. annettujen arvosanojen perusteella.)
 
 * Käyttäjä pystyy lisämään kuvan juomasta
@@ -27,24 +25,26 @@ Tietokannat ja web-ohjelmointi kurssin harjoitustyö
 
 * Käyttäjät voivat kommentoida arvosteluita
 
+* Sovelluksessa on käyttäjäsivut, jotka näyttävät jokaisesta käyttäjästä tilastoja (arvostelujen määrä ja jotain muuta hauskaa nippelitietoa)
+
 ## Sovelluksen asennus
 
 Asenna `flask`-kirjasto:
 
 ```
-$ pip install flask
+pip install flask
 ```
 
 Luo tietokannan taulut ja lisää alkutiedot:
 
 ```
-$ sqlite3 database.db < schema.sql
+sqlite3 database.db < schema.sql
 ```
 
 Voit käynnistää sovelluksen näin:
 
 ```
-$ flask run
+flask run
 ```
 
 ## Miksi?
