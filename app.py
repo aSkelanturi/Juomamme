@@ -76,6 +76,7 @@ def login():
 #Logout page
 @app.route("/logout")
 def logout():
+    require_login()
     del session["username"]
     del session["user_id"]
     return redirect("/")
